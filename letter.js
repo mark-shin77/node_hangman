@@ -11,8 +11,8 @@ var Letter = function(letter){
             return " ";
         }
         // Returns an underscore if letter is not in the word
-        if(this.appear = false){
-            return "_ ";
+        if(this.appear === false){
+            return " _ ";
         } 
         // Returns letter if it is part of the word
         else {

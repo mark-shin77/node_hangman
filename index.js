@@ -56,11 +56,12 @@ var hangman = {
 
     newGame: function(){
         if(this.guessesRemaining === 10) {
-            console.log("Ok! Let's Get It!" + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            console.log("\nOk! Let's Get It!\nCategory: Generation 1 Pokemon \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             var ranNum = Math.floor(Math.random()*this.wordBank.length);
             this.currentWord = new Word (this.wordBank[ranNum]);
             this.currentWord.pushLetters();
             console.log(this.currentWord.wordRender());
+            console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             this.keepPromptingUser();
         } 
         else{
@@ -88,8 +89,7 @@ var hangman = {
                         return false;
                     }
                 }
-            }. 
-            then(function(lttr){
+            }]).then(function(lttr){
                 var letterReturned = (lttr.chosenLetter).toUpperCase();
                 var alreadyGuessed = false;
                 for (var x = 0; x < that.guessedLetters.length; x++){
@@ -102,27 +102,32 @@ var hangman = {
 
                     var found = that.currentWord.checkIfLetterGuessed(letterReturned);
                     if(found === 0){
-                        console.log("Nope, There is no " + letterReturned + "in the word!");
+                        console.log("\n=====================================")
+                        console.log("Nope, There is no " + letterReturned + " in the word!");
                         that.guessesRemaining--;
                         that.display++;
-                        console.log("Guesses remaining: " + that.guessesRemaining);
+                        console.log("Guesses remaining: " + that.guessesRemaining + "\n");
                         console.log(hangmanDisplay[(that.display)-1]);
-                        console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                        console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                         console.log(that.currentWord.wordRender());
-                        console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                         console.log("Letters guessed: " + that.guessedLetters);
+                        console.log("=====================================\n")
                     }
                     else{
-                        console.log("Correct!");
+                        console.log("\nCorrect!");
                         if(that.currentWord.allLettersFound() === true){
                             console.log(that.currentWord.wordRender());
-                            console.log("Congratulations! You are a true Pokémon Master!")
+                            console.log("\nCongratulations! You are a true Pokémon Master!\n")
+                            process.exit();
                         }
                         else{
-                            console.log("Guesses Remaining: " + that.guessesRemaining);
+                            console.log("\n=====================================")
+                            console.log("Guesses Remaining: " + that.guessesRemaining + "\n");
                             console.log(that.currentWord.wordRender());
-                            console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
                             console.log("Letters guessed: " + that.guessedLetters);
+                            console.log("\n=====================================\n")
                         }
                     }
 
@@ -139,7 +144,6 @@ var hangman = {
                     }
                 }
             })
-        ])
     }
 }
 
