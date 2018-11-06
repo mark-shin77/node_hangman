@@ -19,7 +19,6 @@ var Letter = function(letter){
             return this.letter
         }
     }
-}
-
-// Export to use in words.js
+};
+// Export to words.js
 module.exports = Letter;

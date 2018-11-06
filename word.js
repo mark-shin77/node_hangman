@@ -44,10 +44,9 @@ var Word = function (word){
             var currentLetter = ltr.letterRender();
             display+=currentLetter;
         })
-
         return display;
     }
-
 }
 
+// Exports to index.js
 module.exports = Word;
