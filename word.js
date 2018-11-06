@@ -2,6 +2,7 @@
 var Letter = require("./letter");
 
 var Word = function (word){
+    var that = this;
     // Storing the word
     this.word = word;
     // Collecting all guessed letters
@@ -10,8 +11,8 @@ var Word = function (word){
     this.wordFound = false;
     // Pushing Guessed letters to letters array
     this.pushLetters = function (){
-        for (var x = 0; x < this.word.length; x++){
-            var newLetter = new Letter (this.word[x])
+        for (var x = 0; x < that.word.length; x++){
+            var newLetter = new Letter (that.word[x])
             this.letters.push(newLetter)
         }       
     }
@@ -40,7 +41,7 @@ var Word = function (word){
     // Renders word based on letters found
     this.wordRender = function (){
         var display = "";
-        this.letter.forEach(function(ltr){
+        that.letter.forEach(function(ltr){
             var currentLetter = ltr.letterRender();
             display+=currentLetter;
         })
