@@ -74,6 +74,7 @@ var hangman = {
     },
 
     keepPromptingUser: function(){
+        var that = this;
         inquirer.prompt([
             {
                 name: "chosenLetter",
@@ -91,50 +92,50 @@ var hangman = {
             then(function(lttr){
                 var letterReturned = (lttr.chosenLetter).toUpperCase();
                 var alreadyGuessed = false;
-                for (var x = 0; x < this.guessedLetters.length; x++){
-                    if (letterReturned === this.guessedLetters[x]){
+                for (var x = 0; x < that.guessedLetters.length; x++){
+                    if (letterReturned === that.guessedLetters[x]){
                         alreadyGuessed = true;
                     }
                 }
                 if(alreadyGuessed === false){
-                    this.guessedLetters.push(letterReturned);
+                    that.guessedLetters.push(letterReturned);
 
-                    var found = this.currentWord.checkIfLetterGuessed(letterReturned);
+                    var found = that.currentWord.checkIfLetterGuessed(letterReturned);
                     if(found === 0){
                         console.log("Nope, There is no " + letterReturned + "in the word!");
-                        this.guessesRemaining--;
-                        this.display++;
-                        console.log("Guesses remaining: " + this.guessesRemaining);
-                        console.log(hangmanDisplay[(this.display)-1]);
+                        that.guessesRemaining--;
+                        that.display++;
+                        console.log("Guesses remaining: " + that.guessesRemaining);
+                        console.log(hangmanDisplay[(that.display)-1]);
                         console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-                        console.log(this.currentWord.wordRender());
+                        console.log(that.currentWord.wordRender());
                         console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-                        console.log("Letters guessed: " + this.guessedLetters);
+                        console.log("Letters guessed: " + that.guessedLetters);
                     }
                     else{
                         console.log("Correct!");
-                        if(this.currentWord.allLettersFound() === true){
-                            console.log(this.currentWord.wordRender());
+                        if(that.currentWord.allLettersFound() === true){
+                            console.log(that.currentWord.wordRender());
                             console.log("Congratulations! You are a true Pokémon Master!")
                         }
                         else{
-                            console.log("Guesses Remaining: " + this.guessesRemaining);
-                            console.log(this.currentWord.wordRender());
+                            console.log("Guesses Remaining: " + that.guessesRemaining);
+                            console.log(that.currentWord.wordRender());
                             console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-                            console.log("Letters guessed: " + this.guessedLetters);
+                            console.log("Letters guessed: " + that.guessedLetters);
                         }
                     }
 
-                    if(this.guessesRemaining > 0 && this.currentWord.wordFound === false){
-                        this.keepPromptingUser();
+                    if(that.guessesRemaining > 0 && that.currentWord.wordFound === false){
+                        that.keepPromptingUser();
                     } 
-                    else if (this.guessesRemaining === 0) {
+                    else if (that.guessesRemaining === 0) {
                         console.log("Game over :(")
-                        console.log("The word you were guessing was: " + this.currentWord.word)
+                        console.log("The word you were guessing was: " + that.currentWord.word)
                     }
                     else{
                         console.log("You've guessed that letter already! Try again!");
-                        this.keepPromptingUser();
+                        that.keepPromptingUser();
                     }
                 }
             })

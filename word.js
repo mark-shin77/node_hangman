@@ -41,8 +41,8 @@ var Word = function (word){
     // Renders word based on letters found
     this.wordRender = function (){
         var display = "";
-        that.letter.forEach(function(ltr){
-            var currentLetter = ltr.letterRender();
+        that.letters.forEach(function(ltr){
+            var currentLetter = ltr.letterGuesser();
             display+=currentLetter;
         })
         return display;
