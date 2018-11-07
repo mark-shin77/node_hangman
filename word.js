@@ -27,7 +27,7 @@ var Word = function (word){
         }
     };
     // Goes through each letter to check if it matches the guessed letter
-    this.checkIfLetterGuessed = function(guess){
+    this.checkIfLetterFound = function(guess){
         var whatToReturn = 0;
         this.letters.forEach(function(ltr){
             if(ltr.letter === guess){
