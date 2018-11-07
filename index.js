@@ -57,17 +57,24 @@ var hangman = {
     },
     // Starts a new game
     newGame: function(){
+        // Clear terminal before displaying info
+        console.reset = function () {
+            return process.stdout.write('\033c');
+        }
         if(this.guessesRemaining === 10) {
-            console.log("\nOk! Let's Get It!\nCategory: Generation 1 Pokemon \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            console.reset();
+            console.log("\n=====================================");
+            console.log("\nOk! Let's Get It!\n\nCategory: Generation 1 Pokémon \n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             // Picking a random word from the word bank
             var ranNum = Math.floor(Math.random()*this.wordBank.length);
             // Pushing the randomly selected word through Word/Letter constructors which return 
             // underscores in place of the number of letters in the selected word
             this.currentWord = new Word (this.wordBank[ranNum]);
             this.currentWord.pushLetters();
-            // Renders word based on selected word
+            // Renders underscores based on word
             console.log(this.currentWord.wordRender());
             console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            console.log("\n=====================================\n")
             // Prompts user to select a letter
             this.keepPromptingUser();
         } 
@@ -103,12 +110,19 @@ var hangman = {
                 var letterReturned = (lttr.chosenLetter).toUpperCase();
                 // Boolean for whether or not a  letter has been guessed
                 var alreadyGuessed = false;
+                // Clear terminal before displaying info
+                console.reset = function () {
+                    return process.stdout.write('\033c');
+                  }
                 // Loops through guessedLetters array to check if a letter has been picked
                 for (var x = 0; x < that.guessedLetters.length; x++){
                     if (letterReturned === that.guessedLetters[x]){
                         alreadyGuessed = true;
+                        console.reset();
                         console.log("=====================================");
                         console.log("\nYou've guessed that letter already!\n");
+                        console.log("Guesses Remaining: " + that.guessesRemaining);
+                        console.log("\nLetters guessed: " + that.guessedLetters + "\n");
                         console.log("=====================================");
                         // Prompts user to select a letter
                         that.keepPromptingUser();
@@ -122,35 +136,58 @@ var hangman = {
                     var found = that.currentWord.checkIfLetterFound(letterReturned);
                     if(found === 0){
                         // If no letters are found, let user know they were wrong
+                        console.reset();
                         console.log("\n=====================================")
-                        console.log("Nope, There is no " + letterReturned + " in the word!");
+                        console.log("\nNope, There is no " + letterReturned + " in the word!");
                         that.guessesRemaining--;
                         that.display++;
-                        console.log("Guesses remaining: " + that.guessesRemaining + "\n");
+                        console.log("\nGuesses remaining: " + that.guessesRemaining + "\n");
                         console.log(hangmanDisplay[(that.display)-1]);
                         console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                        // Renders letters / underscores based on whether or not letter has been found
                         console.log(that.currentWord.wordRender());
                         console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                         console.log("Letters guessed: " + that.guessedLetters);
                         console.log("=====================================\n")
                     }
                     else{
-                        console.log("\nCorrect!");
                         // Checking to see if user has found all letters or not
                         if(that.currentWord.allLettersFound() === true){
+                            console.reset();
+                            console.log("\n=======================================\n")                        
                             // If all letters are found, user wins
                             console.log(that.currentWord.wordRender());
-                            console.log("\nCongratulations! You are a true Pokémon Master!\n")
+                            console.log("\nAmazing! You are a true Pokémon Master!")
+                            console.log("\n=======================================\n")                        
                             // Ending the game
                             process.exit();
                         }
                         else{
-                            console.log("\n=====================================")
-                            console.log("Guesses Remaining: " + that.guessesRemaining + "\n");
-                            console.log(that.currentWord.wordRender());
-                            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-                            console.log("Letters guessed: " + that.guessedLetters);
-                            console.log("\n=====================================\n")
+                            if(that.display == 0){
+                                console.reset();
+                                // Not displaying the hangman graphic is answer is correct and remaining guesses = 10
+                                console.log("\n=====================================")
+                                console.log("\nCorrect!\n");
+                                console.log("Guesses Remaining: " + that.guessesRemaining);
+                                console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+                                console.log(that.currentWord.wordRender());
+                                console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+                                console.log("Letters guessed: " + that.guessedLetters);
+                                console.log("\n=====================================\n")                                
+                            }
+                            else{
+                                console.reset();
+                                // Displaying hangman graphic if answer is correct and remaining guesses is < 10
+                                console.log("\n=====================================")
+                                console.log("\nCorrect!\n");
+                                console.log("Guesses Remaining: " + that.guessesRemaining + "\n");
+                                console.log(hangmanDisplay[(that.display)-1]);
+                                console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                                console.log(that.currentWord.wordRender());
+                                console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                                console.log("Letters guessed: " + that.guessedLetters);
+                                console.log("=====================================\n")
+                            }
                         }
                     }
                     // After displaying appropriate message to user, run function again if guesses are remaining
@@ -159,8 +196,11 @@ var hangman = {
                     } 
                     // If guessesRemaining = 0 end the game
                     else if (that.guessesRemaining === 0) {
+                        console.reset();
+                        console.log("\n=====================================\n");
                         console.log("Game over :(")
-                        console.log("The word you were guessing was: " + that.currentWord.word)
+                        console.log("The Pokémon you were guessing was: " + that.currentWord.word)
+                        console.log("\n=====================================\n");
                     }
                 }
             })

@@ -38,7 +38,7 @@ var Word = function (word){
         // If guess matches Letter property, the letter shows
         return whatToReturn;
     }
-    // Renders word based on letters found
+    // Renders letters based on if letters are found or not
     this.wordRender = function (){
         var display = "";
         that.letters.forEach(function(ltr){
