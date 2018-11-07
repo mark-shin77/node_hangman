@@ -1,6 +1,6 @@
 # Hangman Node.js
 ### Short Video Presentation
-- 
+- https://drive.google.com/file/d/1cwL1rXPOaZ0WP76xKtK4eiWLsMEzF5I8/view
 
 ### Requirements
 
@@ -12,6 +12,12 @@
 - Node.js
 - Inquirer NPM Package - https://www.npmjs.com/package/inquirer
 - is-letter NPM Package - https://www.npmjs.com/package/is-letter
+
+### To Play
+
+- Clone repo
+- In Terminal or Gitbash run command "npm install"
+- In Terminal or Gitbash run command "node index.js" and enjoy! :+1:
 
 ### Code Explanation
 
