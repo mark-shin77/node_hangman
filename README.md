@@ -18,10 +18,10 @@
 - Letter.js constructor is used to generate the correctly guessed letter or underscores ( _ ) when a word is chosen from the words array.
 
 - Word.js constructor has multiple functions 
-   1. pushLetters - runs the guessed letter through the Letter constructor.
-   2. allLettersFound - checks if all letters in the word have been correctly guessed.
-   3. checkIfLettersFound - goes through each letter to check if it matches the guessed letter.
-   4. wordRender - renders in the correctly guessed letters as they are guessed.
+   * pushLetters - runs the guessed letter through the Letter constructor.
+   * allLettersFound - checks if all letters in the word have been correctly guessed.
+   * checkIfLettersFound - goes through each letter to check if it matches the guessed letter.
+   * wordRender - renders in the correctly guessed letters as they are guessed.
    
 - Index.js is where all of the code starts coming together. A start, prompt, reset, and new function are used to interact with the user and run through the game. 
 
